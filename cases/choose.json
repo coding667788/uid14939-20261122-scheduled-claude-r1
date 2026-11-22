@@ -1,0 +1,116 @@
+{
+  "case_version": 1,
+  "case_id": "case-choose-candidates",
+  "description": "A compliant baseline plus pending candidates. The candidates share the same source member, so choosing several of them charges the same participant repeatedly. The optimum must trade research value against the worst personal charge.",
+  "active_linkage": "L-FINAL",
+  "participants": [
+    {"participant_id": "P-ADA"},
+    {"participant_id": "P-BOR"},
+    {"participant_id": "P-CYR"}
+  ],
+  "cohorts": [
+    {"cohort_id": "C-ALPHA"},
+    {"cohort_id": "C-BETA"}
+  ],
+  "purposes": [
+    {"purpose_id": "U-SUMMARY"}
+  ],
+  "members": [
+    {"member_id": "M-A1", "cohort_id": "C-ALPHA"},
+    {"member_id": "M-A2", "cohort_id": "C-ALPHA"},
+    {"member_id": "M-B1", "cohort_id": "C-BETA"},
+    {"member_id": "M-NEW", "cohort_id": "C-BETA"}
+  ],
+  "snapshots": [
+    {"snapshot_id": "S-ALPHA-V1", "cohort_id": "C-ALPHA", "version": 1, "members": ["M-A1", "M-A2"]},
+    {"snapshot_id": "S-BETA-V1", "cohort_id": "C-BETA", "version": 1, "members": ["M-B1"]},
+    {"snapshot_id": "S-NEW-V1", "cohort_id": "C-BETA", "version": 2, "members": ["M-NEW"]},
+    {"snapshot_id": "S-NEW-V2", "cohort_id": "C-BETA", "version": 3, "members": ["M-NEW", "M-B1"]}
+  ],
+  "windows": [
+    {"window_id": "W-Q4", "start": 0, "end": 10, "purpose_ids": ["U-SUMMARY"], "cap": "1"},
+    {"window_id": "W-ALL", "start": 0, "end": 100, "purpose_ids": ["U-SUMMARY"], "cap": "3/2"}
+  ],
+  "releases": [
+    {
+      "release_id": "R-BASE-1",
+      "batch_id": "B-2026Q4",
+      "snapshot_id": "S-ALPHA-V1",
+      "purpose_id": "U-SUMMARY",
+      "occasion": 1,
+      "cost": "1/4",
+      "status": "published"
+    },
+    {
+      "release_id": "R-BASE-2",
+      "batch_id": "B-2026Q4",
+      "snapshot_id": "S-BETA-V1",
+      "purpose_id": "U-SUMMARY",
+      "occasion": 2,
+      "cost": "1/4",
+      "status": "published"
+    }
+  ],
+  "candidates": [
+    {
+      "release_id": "CAND-A",
+      "snapshot_id": "S-NEW-V1",
+      "purpose_id": "U-SUMMARY",
+      "occasion": 3,
+      "cost": "1/3",
+      "research_value": "6",
+      "mandatory": false
+    },
+    {
+      "release_id": "CAND-B",
+      "snapshot_id": "S-NEW-V2",
+      "purpose_id": "U-SUMMARY",
+      "occasion": 4,
+      "cost": "1/3",
+      "research_value": "6",
+      "mandatory": false
+    },
+    {
+      "release_id": "CAND-C",
+      "snapshot_id": "S-ALPHA-V1",
+      "purpose_id": "U-SUMMARY",
+      "occasion": 5,
+      "cost": "1/6",
+      "research_value": "2",
+      "mandatory": false
+    },
+    {
+      "release_id": "CAND-D",
+      "snapshot_id": "S-NEW-V1",
+      "purpose_id": "U-SUMMARY",
+      "occasion": 6,
+      "cost": "1/12",
+      "research_value": "1",
+      "mandatory": false
+    },
+    {
+      "release_id": "CAND-MUST",
+      "snapshot_id": "S-ALPHA-V1",
+      "purpose_id": "U-SUMMARY",
+      "occasion": 7,
+      "cost": "1/12",
+      "research_value": "0",
+      "mandatory": true
+    }
+  ],
+  "linkages": [
+    {
+      "linkage_id": "L-FINAL",
+      "effective_from": 0,
+      "assignments": [
+        {"member_id": "M-A1", "participant_id": "P-ADA"},
+        {"member_id": "M-A2", "participant_ids": ["P-ADA", "P-BOR"]},
+        {"member_id": "M-B1", "participant_id": "P-ADA"},
+        {"member_id": "M-NEW", "participant_id": "P-ADA"}
+      ]
+    }
+  ],
+  "audit_views": [
+    {"view_id": "V-FINAL", "linkage_id": "L-FINAL"}
+  ]
+}

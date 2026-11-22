@@ -1,0 +1,130 @@
+{
+  "case_version": 1,
+  "case_id": "case-two-cohorts-shared-participant",
+  "description": "One individual (P-ADA) is recorded in both C-ALPHA and C-BETA. Each cohort's report costs 3/5 on its own and fits the cap of 1; co-published they charge P-ADA 6/5. A retracted report keeps costing, a never-submitted draft is refunded, and a report at the exact window end is outside the window.",
+  "active_linkage": "L-ORIGINAL",
+  "participants": [
+    {"participant_id": "P-ADA"},
+    {"participant_id": "P-BOR"},
+    {"participant_id": "P-CYR"}
+  ],
+  "cohorts": [
+    {"cohort_id": "C-ALPHA"},
+    {"cohort_id": "C-BETA"}
+  ],
+  "purposes": [
+    {"purpose_id": "U-SUMMARY"},
+    {"purpose_id": "U-REGRESSION"}
+  ],
+  "members": [
+    {"member_id": "M-A1", "cohort_id": "C-ALPHA"},
+    {"member_id": "M-A2", "cohort_id": "C-ALPHA"},
+    {"member_id": "M-B1", "cohort_id": "C-BETA"},
+    {"member_id": "M-B2", "cohort_id": "C-BETA"}
+  ],
+  "snapshots": [
+    {"snapshot_id": "S-ALPHA-V1", "cohort_id": "C-ALPHA", "version": 1, "members": ["M-A1", "M-A2", "M-A1"]},
+    {"snapshot_id": "S-ALPHA-V2", "cohort_id": "C-ALPHA", "version": 2, "members": ["M-A2"]},
+    {"snapshot_id": "S-BETA-V1", "cohort_id": "C-BETA", "version": 1, "members": ["M-B1", "M-B2"]}
+  ],
+  "windows": [
+    {"window_id": "W-Q4", "start": 0, "end": 10, "purpose_ids": ["U-SUMMARY"], "cap": "1"},
+    {"window_id": "W-LATE", "start": 10, "end": 20, "purpose_ids": ["U-SUMMARY"], "cap": "1"},
+    {"window_id": "W-YEAR", "start": 0, "end": 100, "purpose_ids": ["U-SUMMARY", "U-REGRESSION"], "cap": "5"}
+  ],
+  "releases": [
+    {
+      "release_id": "R-ALPHA-1",
+      "batch_id": "B-2026Q4",
+      "snapshot_id": "S-ALPHA-V1",
+      "purpose_id": "U-SUMMARY",
+      "occasion": 0,
+      "cost": "3/5",
+      "status": "published"
+    },
+    {
+      "release_id": "R-BETA-1",
+      "batch_id": "B-2026Q4",
+      "snapshot_id": "S-BETA-V1",
+      "purpose_id": "U-SUMMARY",
+      "occasion": 5,
+      "cost": "3/5",
+      "status": "published"
+    },
+    {
+      "release_id": "R-RETRACTED-1",
+      "batch_id": "B-2026Q4",
+      "snapshot_id": "S-BETA-V1",
+      "purpose_id": "U-SUMMARY",
+      "occasion": 9,
+      "cost": "1/10",
+      "status": "retracted"
+    },
+    {
+      "release_id": "R-DRAFT-1",
+      "batch_id": "B-2026Q4",
+      "snapshot_id": "S-ALPHA-V1",
+      "purpose_id": "U-SUMMARY",
+      "occasion": 9,
+      "cost": "1/10",
+      "status": "draft"
+    },
+    {
+      "release_id": "R-REG-1",
+      "batch_id": "B-2026Q4",
+      "snapshot_id": "S-ALPHA-V1",
+      "purpose_id": "U-REGRESSION",
+      "occasion": 2,
+      "cost": "1/2",
+      "status": "published"
+    },
+    {
+      "release_id": "R-BOUNDARY-1",
+      "batch_id": "B-2026Q4",
+      "snapshot_id": "S-BETA-V1",
+      "purpose_id": "U-SUMMARY",
+      "occasion": 10,
+      "cost": "1/2",
+      "status": "published"
+    }
+  ],
+  "candidates": [],
+  "linkages": [
+    {
+      "linkage_id": "L-ORIGINAL",
+      "effective_from": 0,
+      "assignments": [
+        {"member_id": "M-A1", "participant_id": "P-ADA"},
+        {"member_id": "M-A2", "participant_id": "P-BOR"},
+        {"member_id": "M-B1", "participant_id": "P-ADA"},
+        {"member_id": "M-B2", "participant_id": "P-CYR"}
+      ]
+    },
+    {
+      "linkage_id": "L-AMBIGUOUS",
+      "effective_from": 100,
+      "assignments": [
+        {"member_id": "M-A1", "participant_ids": ["P-ADA", "P-CYR"]},
+        {"member_id": "M-A2", "participant_id": "P-BOR"},
+        {"member_id": "M-B1", "participant_id": "P-ADA"},
+        {"member_id": "M-B2", "participant_id": "P-CYR"}
+      ]
+    },
+    {
+      "linkage_id": "L-MERGED",
+      "effective_from": 200,
+      "assignments": [
+        {"member_id": "M-A1", "participant_id": "P-ADA"},
+        {"member_id": "M-A2", "participant_id": "P-ADA"},
+        {"member_id": "M-B1", "participant_id": "P-ADA"},
+        {"member_id": "M-B2", "participant_id": "P-CYR"}
+      ],
+      "merge_groups": [["M-A1", "M-A2"]]
+    }
+  ],
+  "audit_views": [
+    {"view_id": "V-ORIGINAL", "linkage_id": "L-ORIGINAL"},
+    {"view_id": "V-AMBIGUOUS", "linkage_id": "L-AMBIGUOUS"}
+  ],
+  "recheck": {"view_id": "V-ORIGINAL", "new_linkage": "L-AMBIGUOUS"}
+}
